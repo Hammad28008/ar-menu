@@ -1,73 +1,42 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8" />
-    <title>AR Restaurant Menu Demo</title>
-
-    <!-- A-Frame -->
-    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
-
-    <!-- MindAR -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
-
-    <style>
-      body {
-        margin: 0;
-        overflow: hidden;
-        font-family: Arial, sans-serif;
-      }
-
-      #hint {
-        position: fixed;
-        bottom: 20px;
-        width: 100%;
-        text-align: center;
-        color: white;
-        font-size: 16px;
-      }
-    </style>
+    <title>AR Menu Starter Example</title>
   </head>
 
   <body>
-    <div id="hint">Point camera at the menu image</div>
-
     <a-scene
-      mindar-image="imageTargetSrc: targets.mind;"
+      mindar-image="imageTargetSrc: https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/card-example/card.mind;"
+      color-space="sRGB"
+      renderer="colorManagement: true, physicallyCorrectLights"
       vr-mode-ui="enabled: false"
       device-orientation-permission-ui="enabled: false"
     >
 
+      <a-assets>
+        <img id="card" src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/card-example/card.png" />
+        <a-asset-item
+          id="avatarModel"
+          src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.2.5/examples/image-tracking/assets/card-example/softmind/scene.gltf"
+        ></a-asset-item>
+      </a-assets>
+
       <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
 
       <a-entity mindar-image-target="targetIndex: 0">
-
-        <!-- Food model -->
-        <a-box
-          position="0 0.1 0"
-          rotation="0 45 0"
-          scale="0.3 0.1 0.3"
-          color="#ff9933"
-        ></a-box>
-
-        <!-- Dish name -->
-        <a-text
-          value="Cheese Burger"
-          position="0 0.35 0"
-          align="center"
-          width="2"
-          color="white"
-        ></a-text>
-
-        <!-- Price -->
-        <a-text
-          value="Price: $8"
-          position="0 0.25 0"
-          align="center"
-          width="2"
-          color="yellow"
-        ></a-text>
-
+        <a-plane src="#card" position="0 0 0" height="0.552" width="1" rotation="0 0 0"></a-plane>
+        <a-gltf-model
+          rotation="0 0 0"
+          position="0 0 0.1"
+          scale="0.005 0.005 0.005"
+          src="#avatarModel"
+          animation="property: position; to: 0 0.1 0.1; dur: 1000; easing: easeInOutQuad; loop: true; dir: alternate"
+        ></a-gltf-model>
       </a-entity>
+
     </a-scene>
   </body>
 </html>
